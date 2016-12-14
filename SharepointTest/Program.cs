@@ -16,7 +16,7 @@ namespace SharepointTest
             {
                 context.Credentials = new SharePointOnlineCredentials("**username**", GetPassword("**password**"));
 
-                List list = context.Web.Lists.GetByTitle("SPAR Stores");
+                List list = context.Web.Lists.GetByTitle("**list**");
 
                 CamlQuery query = CamlQuery.CreateAllItemsQuery(100);
                 ListItemCollection items = list.GetItems(query);
