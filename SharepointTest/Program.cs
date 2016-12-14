@@ -12,11 +12,20 @@ namespace SharepointTest
     {
         static void Main(string[] args)
         {
-            using (var context = new ClientContext("**url**"))
-            {
-                context.Credentials = new SharePointOnlineCredentials("**username**", GetPassword("**password**"));
+            Console.Write("Site Url:");
+            var url = Console.ReadLine();
+            Console.Write("List Name:");
+            var listName = Console.ReadLine();
+            Console.Write("Username:");
+            var username = Console.ReadLine();
+            Console.Write("Password:");
+            var password = Console.ReadLine();
 
-                List list = context.Web.Lists.GetByTitle("**list**");
+            using (var context = new ClientContext(url))
+            {
+                context.Credentials = new SharePointOnlineCredentials(username, GetPassword(password));
+
+                List list = context.Web.Lists.GetByTitle(listName);
 
                 CamlQuery query = CamlQuery.CreateAllItemsQuery(100);
                 ListItemCollection items = list.GetItems(query);
@@ -24,7 +33,9 @@ namespace SharepointTest
                 context.Load(items);
                 context.ExecuteQuery();
 
+                Console.Write("List Count:");
                 Console.Write(items.Count);
+                Console.Read();
             }
         }
 
